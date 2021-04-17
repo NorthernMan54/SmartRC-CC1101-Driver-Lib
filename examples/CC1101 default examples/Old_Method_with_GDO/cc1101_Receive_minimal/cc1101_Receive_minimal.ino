@@ -8,14 +8,16 @@ int gdo0;
 void setup(){
 
 #ifdef ESP32
-gdo0 = 2;  // for esp32! GDO0 on GPIO pin 2.
+gdo0 = RF_RECEIVER_GPIO;  // for esp32! GDO0 on GPIO pin 2.
 #elif ESP8266
 gdo0 = 5;  // for esp8266! GDO0 on pin 5 = D1.
 #else
 gdo0 = 6;  // for Arduino! GDO0 on pin 6.
 #endif 
   
-    Serial.begin(9600);
+    Serial.begin(921600);
+    delay(1500);
+    Serial.println();
     
     if (ELECHOUSE_cc1101.getCC1101()){         // Check the CC1101 Spi connection.
     Serial.println("Connection OK");
@@ -33,7 +35,7 @@ gdo0 = 6;  // for Arduino! GDO0 on pin 6.
 
     Serial.println("Rx Mode");
 }
-byte buffer[61] = {0};
+byte buffer[256] = {0};
 
 void loop(){
 
@@ -44,6 +46,8 @@ void loop(){
     Serial.println(ELECHOUSE_cc1101.getRssi());
     Serial.print("LQI: ");
     Serial.println(ELECHOUSE_cc1101.getLqi());
+    Serial.print("Time: ");
+    Serial.println(millis()/1000);
     
     int len = ELECHOUSE_cc1101.ReceiveData(buffer);
     buffer[len] = '\0';

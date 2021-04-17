@@ -45,16 +45,19 @@ void loop() {
 
 //Transmitt "Hello World" from byte format.
 ELECHOUSE_cc1101.SendData(transmitt_byte, 11);
+ELECHOUSE_cc1101.SetRx();
 Serial.println("transmitt_byte");
 delay(2000);
 
 //Transmitt "Hello World" from char format.
 ELECHOUSE_cc1101.SendData(transmitt_char);
+ELECHOUSE_cc1101.SetRx();
 Serial.println("transmitt_char");
 delay(2000);
 
 //Transmitt "Hello World" from char format directly.
 ELECHOUSE_cc1101.SendData("Hello World");
+ELECHOUSE_cc1101.SetRx();
 Serial.println("transmitt_text");
 delay(2000);
 }
