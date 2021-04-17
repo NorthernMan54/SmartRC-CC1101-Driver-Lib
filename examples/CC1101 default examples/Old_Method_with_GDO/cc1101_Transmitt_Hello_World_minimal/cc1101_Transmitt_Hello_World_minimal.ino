@@ -11,14 +11,16 @@ char *transmitt_char = "Hello World";
 void setup() {
 
 #ifdef ESP32
-gdo0 = 2;  // for esp32! GDO0 on GPIO pin 2.
+gdo0 = RF_EMITTER_GPIO;  // for esp32! GDO0 on GPIO pin 2.
 #elif ESP8266
 gdo0 = 5;  // for esp8266! GDO0 on pin 5 = D1.
 #else
 gdo0 = 6;  // for Arduino! GDO0 on pin 6.
 #endif 
 
-    Serial.begin(9600);
+    Serial.begin(921600);
+    delay(1500);
+    Serial.println();
     
     if (ELECHOUSE_cc1101.getCC1101()){         // Check the CC1101 Spi connection.
     Serial.println("Connection OK");
@@ -43,13 +45,16 @@ void loop() {
 
 //Transmitt "Hello World" from byte format.
 ELECHOUSE_cc1101.SendData(transmitt_byte, 11);
+Serial.println("transmitt_byte");
 delay(2000);
 
 //Transmitt "Hello World" from char format.
 ELECHOUSE_cc1101.SendData(transmitt_char);
+Serial.println("transmitt_char");
 delay(2000);
 
 //Transmitt "Hello World" from char format directly.
 ELECHOUSE_cc1101.SendData("Hello World");
+Serial.println("transmitt_text");
 delay(2000);
 }
